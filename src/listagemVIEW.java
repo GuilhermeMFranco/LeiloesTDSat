@@ -1,5 +1,8 @@
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -148,7 +151,9 @@ public class listagemVIEW extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(this, "Produto vendido com sucesso!");
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "ID inválido. Por favor, insira um número.");
-        }
+        }   catch (SQLException ex) {
+                Logger.getLogger(listagemVIEW.class.getName()).log(Level.SEVERE, null, ex);
+            }
     } else {
         JOptionPane.showMessageDialog(this, "Por favor, insira o ID do produto.");
     } 
