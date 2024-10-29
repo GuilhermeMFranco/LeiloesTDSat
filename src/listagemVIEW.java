@@ -3,6 +3,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -161,14 +162,16 @@ public class listagemVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        vendasVIEW vendas = new vendasVIEW(); 
-        vendas.setVisible(true);
+         
+            vendasVIEW vendasView = new vendasVIEW();
+            vendasView.setVisible(true);
+        
+
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -242,6 +245,7 @@ public class listagemVIEW extends javax.swing.JFrame {
     private static class vendasVIEW {
 
         public vendasVIEW() {
+            
         }
 
         private void setVisible(boolean b) {
