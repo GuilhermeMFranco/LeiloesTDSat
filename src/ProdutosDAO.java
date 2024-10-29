@@ -55,14 +55,72 @@ public class ProdutosDAO {
     }
 }
     
-    
-    public ArrayList<ProdutosDTO> listarProdutos(){
-        
+     public ArrayList<ProdutosDTO> listarProdutos() {
+        conn = new conectaDAO().connectDB();
+        String sql = "SELECT * FROM produtos";
+
+        try {
+            prep = conn.prepareStatement(sql);
+            resultset = prep.executeQuery();
+            
+            listagem.clear(); // Limpa a lista antes de adicionar novos dados
+
+            while (resultset.next()) {
+                ProdutosDTO produto = new ProdutosDTO();
+                produto.setId(resultset.getInt("id")); // Supondo que existe uma coluna id
+                produto.setNome(resultset.getString("nome"));
+                produto.setValor(resultset.getInt("valor"));
+                produto.setStatus(resultset.getString("status"));
+                
+                listagem.add(produto);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao listar produtos: " + e.getMessage());
+        } finally {
+            try {
+                if (resultset != null) resultset.close();
+                if (prep != null) prep.close();
+                if (conn != null) conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         return listagem;
     }
-    
-    
-    
-        
-}
 
+   void venderProduto(int id) throws java.sql.SQLException {
+    conn = new conectaDAO().connectDB(); // Certifique-se de que esta classe está implementada corretamente
+    String sql = "UPDATE produtos SET status = ? WHERE id = ?";
+    
+    try {
+        prep = conn.prepareStatement(sql);
+        
+        // Atualiza o status do produto para "vendido"
+        prep.setString(1, "vendido");
+        prep.setInt(2, id);
+        
+        // Executa a atualização
+        int rowsAffected = prep.executeUpdate();
+        
+        if (rowsAffected > 0) {
+            JOptionPane.showMessageDialog(null, "Produto vendido com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Produto não encontrado!");
+        }
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Erro ao vender produto: " + e.getMessage());
+    } finally {
+        try {
+            if (prep != null) prep.close();
+            if (conn != null) conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+   }
+}
